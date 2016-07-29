@@ -1,0 +1,44 @@
+<div ng-cloak ng-if="isAuthenticated">
+	<div class="row">You are logged in as: <b>{{ account.login }}</b></div>
+	<br />
+    <div class="row">
+    	<div>
+    		<button class="btn btn-default" ng-click="createNewGame()">Create new game</button>
+    		<button class="btn btn-default" ng-click="refresh()">Refresh</button>
+    	</div>
+    </div>
+    <br />
+    <div class="clearfix"></div>
+    <div class="table-responsive">
+    	<table class="table table-striped">
+    	<thead>
+	    	<tr>
+	    		<th>Player one</th>
+	    		<th>Player two</th>
+	    		<th>Current turn</th>
+	    		<th>Game state</th>
+	    		<th></th>
+	    	</tr>
+    	</thead>
+    	<tbody>
+	    	<tr ng-repeat="gravaHalGame in gravaHalGames track by $index">
+	    		<td>{{gravaHalGame.playerOne}}</td>
+                <td>{{gravaHalGame.playerTwo}}</td>
+                <td>{{gravaHalGame.currentTurn}}</td>
+                <td>{{gravaHalGame.gameState}}</td>
+	    		<td ng-switch on="gravaHalGame.gameState">    			
+	    			<input class="btn btn-default" ng-show="account.login == gravaHalGame.playerOne || account.login == gravaHalGame.playerTwo" type="button" ng-click="playTable(gravaHalGame.id)" value="Play"/>
+	    			<div ng-show="account.login != gravaHalGame.playerOne && account.login != gravaHalGame.playerTwo">
+	    				<input class="btn btn-default" ng-switch-when="WAITING_FOR_PLAYER" type="button" ng-click="joinTable(gravaHalGame.id, account.login)" value="Join" />
+		    			<input class="btn btn-default" ng-switch-when="GAME_STARTED" type="button" ng-click="watchTable(gravaHalGame.id, account.login)" value="Watch"/>
+	    			</div> 
+	    		</td>
+	    	</tr>
+	    </tbody>
+	    </table>
+    </div>
+</div>
+
+<div ng-cloak ng-if="!isAuthenticated">
+	You have no access to this view!!!
+</div>

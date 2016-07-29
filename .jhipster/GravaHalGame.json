@@ -1,0 +1,67 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "playerOne",
+            "fieldType": "String",
+            "fieldIsEnum": false,
+            "fieldNameCapitalized": "PlayerOne",
+            "fieldNameUnderscored": "player_one",
+            "fieldInJavaBeanMethod": "PlayerOne",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "playerTwo",
+            "fieldType": "String",
+            "fieldIsEnum": false,
+            "fieldNameCapitalized": "PlayerTwo",
+            "fieldNameUnderscored": "player_two",
+            "fieldInJavaBeanMethod": "PlayerTwo",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "currentTurn",
+            "fieldType": "String",
+            "fieldIsEnum": true,
+            "fieldNameCapitalized": "CurrentTurn",
+            "fieldNameUnderscored": "current_turn",
+            "fieldInJavaBeanMethod": "CurrentTurn",
+            "fieldValidate": false
+        },
+		{
+            "fieldId": 4,
+            "fieldName": "gameState",
+            "fieldType": "String",
+            "fieldIsEnum": true,
+            "fieldNameCapitalized": "GameState",
+            "fieldNameUnderscored": "game_state",
+            "fieldInJavaBeanMethod": "GameState",
+            "fieldValidate": false
+        },
+		{
+            "fieldId": 5,
+            "fieldName": "winner",
+            "fieldType": "String",
+            "fieldIsEnum": false,
+            "fieldNameCapitalized": "Winner",
+            "fieldNameUnderscored": "winner",
+            "fieldInJavaBeanMethod": "Winner",
+            "fieldValidate": false
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOwnerOneToOne": false,
+    "fieldsContainOneToMany": true,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": false,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": false,
+    "fieldsContainDate": false,
+    "changelogDate": "20150727184903",
+    "dto": "no",
+    "pagination": "no",
+    "validation": false
+}

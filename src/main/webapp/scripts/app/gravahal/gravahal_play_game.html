@@ -1,0 +1,129 @@
+<div ng-cloak ng-if="isAuthenticated">
+	
+	<div class="jumbotron">
+		<div class="container">
+			<div style="text-align: center" ng-show="gravaHalGame.gameState == 'WAITING_FOR_PLAYER'">
+				<h3>Waiting for another player to join!</h3>
+			</div>
+			<div style="text-align: center" ng-show="gravaHalGame.gameState == 'GAME_STARTED' && isUserTurn()">
+				<h3>YOUR TURN! Please select the pit to sow by clicking on it from your side board</h3>
+			</div>
+			<div style="text-align: center" ng-show="gravaHalGame.gameState == 'GAME_STARTED' && !isUserTurn()">
+				<h3>OTHER PLAYER TURN! Please wait for other player to complete his/her turn</h3>
+			</div>
+			<div style="text-align: center" ng-show="gravaHalGame.gameState == 'FINISHED'">
+				<h3>GAME HAS FINISHED!<br />Winner is: {{ gravaHalGame.winner }}</h3>
+			</div>
+		</div>
+	</div>
+	
+	<!-- User is PlayerOne: show playerOne table at bottom -->
+	<div ng-if="account.login == gravaHalGame.playerOne">
+		<div class="pull-left">
+			<span>Opponent table: <span class="opponentEmphasize">{{ gravaHalGame.playerTwo || '(empty)' }}</span></span>
+			<br />
+			<span>Captured stones: <b>{{ gravaHalGame.gameBoard[1].gravaHalPit }}</b></span>
+		</div>
+		<div class="clearfix"></div>
+		<br />
+		<div class="row row-centered">
+			<div class="col-xs-3 col-centered opponentBoard">{{ gravaHalGame.gameBoard[1].gravaHalPit }}</div>
+			<div class="col-xs-6 col-centered">
+				<div>
+					<div class="row">
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[1].regularPitSix }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[1].regularPitFive }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[1].regularPitFour }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[1].regularPitThree }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[1].regularPitTwo }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[1].regularPitOne }}</div>
+					</div>
+				</div>
+				<div ng-switch="gravaHalGame.gameState == 'GAME_STARTED' && isUserTurn()">
+					<div class="row" ng-switch-when="true">
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 0)">{{ gravaHalGame.gameBoard[0].regularPitOne }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 1)">{{ gravaHalGame.gameBoard[0].regularPitTwo }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 2)">{{ gravaHalGame.gameBoard[0].regularPitThree }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 3)">{{ gravaHalGame.gameBoard[0].regularPitFour }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 4)">{{ gravaHalGame.gameBoard[0].regularPitFive }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 5)">{{ gravaHalGame.gameBoard[0].regularPitSix }}</div>
+					</div>
+					<div class="row" ng-switch-when="false">
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[0].regularPitOne }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[0].regularPitTwo }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[0].regularPitThree }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[0].regularPitFour }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[0].regularPitFive }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[0].regularPitSix }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-3 col-centered activeBoard">{{ gravaHalGame.gameBoard[0].gravaHalPit }}</div>
+		</div>
+		<br />
+		<div class="pull-right">
+			<span>Your table: <span class="activeEmphasize">{{ gravaHalGame.playerOne || '(empty)' }}</span></span>
+			<br />
+			<span>Captured stones: <b>{{ gravaHalGame.gameBoard[0].gravaHalPit }}</b></span>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	
+	<!-- User is PlayerTwo: show playTwo table at bottom -->
+	<div ng-if="account.login == gravaHalGame.playerTwo">
+		<div class="pull-left">
+			<span>Opponent table: <span class="opponentEmphasize">{{ gravaHalGame.playerOne || '(empty)' }}</span></span>
+			<br />
+			<span>Captured stones: <b>{{ gravaHalGame.gameBoard[0].gravaHalPit }}</b></span>
+		</div>
+		<div class="clearfix"></div>
+		<br />
+		<div class="row row-centered">
+			<div class="col-xs-3 col-centered opponentBoard">{{ gravaHalGame.gameBoard[0].gravaHalPit }}</div>
+			<div class="col-xs-6 col-centered">
+				<div>
+					<div class="row">
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[0].regularPitSix }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[0].regularPitFive }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[0].regularPitFour }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[0].regularPitThree }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[0].regularPitTwo }}</div>
+						<div class="col-xs-2 col-centered opponentBoard">{{ gravaHalGame.gameBoard[0].regularPitOne }}</div>
+					</div>
+				</div>
+				<div ng-switch="gravaHalGame.gameState == 'GAME_STARTED' && isUserTurn()">
+					<div class="row" ng-switch-when="true">
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 0)">{{ gravaHalGame.gameBoard[1].regularPitOne }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 1)">{{ gravaHalGame.gameBoard[1].regularPitTwo }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 2)">{{ gravaHalGame.gameBoard[1].regularPitThree }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 3)">{{ gravaHalGame.gameBoard[1].regularPitFour }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 4)">{{ gravaHalGame.gameBoard[1].regularPitFive }}</div>
+						<div class="col-xs-2 col-centered col-selectable activeBoard" ng-click="sowPit(gravaHalGame.id, account.login, 5)">{{ gravaHalGame.gameBoard[1].regularPitSix }}</div>
+					</div>
+					<div class="row" ng-switch-when="false">
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[1].regularPitOne }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[1].regularPitTwo }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[1].regularPitThree }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[1].regularPitFour }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[1].regularPitFive }}</div>
+						<div class="col-xs-2 col-centered activeBoard">{{ gravaHalGame.gameBoard[1].regularPitSix }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-3 col-centered activeBoard">{{ gravaHalGame.gameBoard[1].gravaHalPit }}</div>
+		</div>
+		<br />
+		<div class="pull-right">
+			<span>Your table: <span class="activeEmphasize">{{ gravaHalGame.playerTwo || '(empty)' }}</span></span>
+			<br />
+			<span>Captured stones: <b>{{ gravaHalGame.gameBoard[1].gravaHalPit }}</b></span>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+
+<div ng-cloak ng-if="!isAuthenticated">
+	You have no access to this view!!!
+</div>

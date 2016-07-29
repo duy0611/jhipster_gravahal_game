@@ -1,0 +1,55 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myGravaHalGameLabel">Create or edit a GravaHalGame</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label>ID</label>
+            <input type="text" class="form-control" name="id"
+                    ng-model="gravaHalGame.id" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="field_playerOne">PlayerOne</label>
+            <input type="text" class="form-control" name="playerOne" id="field_playerOne"
+                    ng-model="gravaHalGame.playerOne">
+
+        </div>
+        <div class="form-group">
+            <label for="field_playerTwo">PlayerTwo</label>
+            <input type="text" class="form-control" name="playerTwo" id="field_playerTwo"
+                    ng-model="gravaHalGame.playerTwo">
+
+        </div>
+        <div class="form-group">
+            <label for="field_currentTurn">CurrentTurn</label>
+            <input type="text" class="form-control" name="currentTurn" id="field_currentTurn"
+                    ng-model="gravaHalGame.currentTurn">
+
+        </div>
+		<div class="form-group">
+            <label for="field_gameState">GameState</label>
+            <input type="text" class="form-control" name="gameState" id="field_gameState"
+                    ng-model="gravaHalGame.gameState">
+
+        </div>
+        <div class="form-group">
+            <label for="field_winner">Winner</label>
+            <input type="text" class="form-control" name="winner" id="field_winner"
+                    ng-model="gravaHalGame.winner">
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
